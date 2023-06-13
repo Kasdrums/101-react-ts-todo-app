@@ -1,10 +1,37 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { RiDeleteBin2Line, RiTodoFill } from 'react-icons/ri'
+import { FaCheck } from 'react-icons/fa'
+import styles from './Todo.module.css'
 
-const Todo = (props) => {
-	return <div>Todo</div>
+interface TodoProps {
+	todo: {
+		id: number
+		text: string
+		isCompleted: boolean
+	}
+	deleteTodo: (id: number) => void
+	toggleTodo: (id: number) => void
 }
 
-Todo.propTypes = {}
+function Todo({ todo, deleteTodo, toggleTodo }: TodoProps) {
+	return (
+		<div
+			className={`${styles.todo} ${
+				todo.isCompleted ? styles.completedTodo : ''
+			}`}
+		>
+			<RiTodoFill className={styles.todoIcon} />
+			<div className={styles.todoText}>{todo.text}</div>
+			<RiDeleteBin2Line
+				className={styles.deleteIcon}
+				onClick={() => deleteTodo(todo.id)}
+			/>
+			<FaCheck
+				className={styles.checkIcon}
+				onClick={() => toggleTodo(todo.id)}
+			/>
+		</div>
+	)
+}
 
 export default Todo

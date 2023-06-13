@@ -1,10 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import styles from './Button.module.css';
 
-const Button = (props) => {
-	return <div>Button</div>
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+    onClick?: () => void;
+    title?: string;
+    disabled?: boolean;
+    children: ReactNode;
 }
 
-Button.propTypes = {}
+function Button({ onClick, children, title, disabled = false, ...rest }: Props) {
+    return (
+        <button
+            {...rest}
+            className={styles.button}
+            onClick={onClick}
+            title={title}
+            disabled={disabled}
+        >
+            {children}
+        </button>
+    );
+}
 
-export default Button
+export default Button;
